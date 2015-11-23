@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-velda-devicefeedback" version="0.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<name>DeviceFeedback</name>
+	<description>Plugin provides a way for haptic and acoustic feedback (native alike) to the user.</description>
+	<author>Jan Velecký</author>
+	<license>Simplified BSD License</license>
+	<keywords>feedback,haptic,acoustic,aural,tactile,sound,vibrate,key,button,touch,tap,vibration,vibrating,ux,user-experience</keywords>
+	
+	<repo>https://github.com/VVelda/device-feedback</repo>
+
+	<engines>
+	    <engine name="cordova" version=">=3.0" />
+	</engines>
+	
+	<js-module name="DeviceFeedback" src="DeviceFeedback.js">
+		<clobbers target="window.plugins.deviceFeedback" />
+	</js-module>
+	
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="DeviceFeedback">
+				<param name="android-package" value="cz.Velda.cordova.plugin.devicefeedback.DeviceFeedback" />
+				<param name="onload" value="true" />
+			</feature>
+		</config-file>
+		
+		<config-file parent="/*" target="AndroidManifest.xml">
+		</config-file>
+		
+		<source-file src="src/android/DeviceFeedback.java" target-dir="src/cz/Velda/cordova/plugin/devicefeedback" />
+	</platform>
+</plugin>

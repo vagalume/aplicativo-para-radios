@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="VagalumeFM">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title></title>
+
+	<link href="lib/ionic/css/ionic.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+	<!-- ionic/angularjs js -->
+	<script src="lib/ionic/js/ionic.bundle.js"></script>
+	<!-- cordova script (this will be a 404 during development) -->
+	<script src="cordova.js"></script>
+	<script src="js/app.js"></script>
+</head>
+<body>
+	<ion-nav-view></ion-nav-view>
+	<script id="player.html" type="text/ng-template">
+		<div id="radioPlayer">
+			<div style="background-image: url(http://s2.vagalume.com/radio/image/{{radio.descr_url}}.jpg);" class="bg-player"></div>
+			<div class="div-bg"></div>
+			<header>
+				<div class="title" ng-class="{'playing': radio.status == 'playing', 'top': !radio.country}">
+					<p>{{radio.name}}</p>
+					<span>{{radio | region}}</span>
+				</div>
+				<div class="tabs-striped tabs-top tabs-background-assertive tabs-color-light">
+					<div class="tabs tabs-top tabs-color-assertive">
+						<a class="tab-item" ng-class="{active: currentTab == 0}" ng-click="changeSlide(0)" href="#">
+							TOCANDO AGORA
+						</a>
+						<a class="tab-item" ng-class="{active: currentTab == 1}" ng-click="changeSlide(1)" href="#">
+							RECENTES
+						</a>
+						<a class="tab-item" ng-class="{active: currentTab == 2}" ng-click="changeSlide(2)" href="#">
+							MAIS TOCADOS
+						</a>
+					</div>
+			    </div>
+			</header>
+			<ion-slide-box class="player-slide" on-slide-changed="slideHasChanged($index)">
+				<ion-slide class="info">
+					<div class="radio-logo">
+						<div>
+							<div style="background: url(http://s2.vagalume.com/radio/image/{{radio.descr_url}}.jpg);"></div>
+						</div>
+					</div>
+					<div class="controls">				
+						<h3 ui-sref="artist({bandURL: radio.currentSong.bandURL})" ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.song}}</h3>
+						<p ui-sref="artist({bandURL: radio.currentSong.bandURL})" ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.band}}</p>
+		                <p ng-show="radio.status == 'buffering' && !playerError && !radio.currentSong" class="ng-hide">Carregando streaming...</p>
+						<p ng-show="radio.currentSong && radio.currentSong.noSong && radio.currentSong.title">{{radio.currentSong.title}}</p>
+						<button ng-click="player.toggle()" class="play-pause ion-loading-c"></button>
+						<button ng-click="share()" class="share ion-android-share-alt"></button>
+					</div>
+				</ion-slide>
+				<ion-slide class="recent-songs">
+					<p ng-hide="recentSongs">A rádio não informa as músicas tocadas</p>			
+					<ul>
+						<li ng-class="{'lyrics': song.id}" ng-repeat="(key, song) in recentSongs track by $index">
+							<div ng-click="openLyrics(song)" data-time="{{song.hour | radioTime}}" style="{{song.background}}"></div>
+							<p ng-click="openLyrics(song)">{{song.title}}</p>
+							<span ng-click="openLyrics(song)">{{song.band}}</span>
+							<p ng-hide="song.title">{{song.radioTitle}}</p>
+							<button ng-show="song.id" class="ion-document-text" ng-click="openLyrics(song)"></button>
+						</li>
+					</ul>
+				</ion-slide>
+				<ion-slide class="most-played">
+					<label class="item item-input item-select">
+						<div class="input-label">
+							Mais tocados
+						</div>
+						<select ng-model="rankType" ng-change="changeRankFilter(rankType)">
+							<option selected value="songs">Músicas</option>				
+							<option value="artists">Artistas</option>
+						</select>
+					</label>
+					<ul>
+						<p ng-hide="rankRadio">Sem ranking no momento</p>
+						<li ng-repeat="(key, song) in rankRadio track by $index">
+							<div ng-click="openLyrics(song)" data-pos="{{key + 1 | position}}" style="background: url(http://s2.vagalume.com/{{song.bandURL}}/images/{{song.bandURL}}.jpg)"></div>
+							<p ng-click="openLyrics(song)" ng-show="rankType == 'songs'">{{song.songName}}</p>
+							<p ng-hide="rankType == 'songs'">{{song.bandName}}</p>
+							<span ng-click="openLyrics(song)" ng-show="rankType == 'songs'">{{song.bandName}}</span>
+							<button class="ion-document-text" ng-show="rankType == 'songs'" ng-click="openLyrics(song)"></button>
+						</li>				
+					</ul>
+				</ion-slide>
+			</ion-slide-box>
+		</div>
+	</script>
+<html>
+<body>

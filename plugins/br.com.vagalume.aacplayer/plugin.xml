@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="br.com.vagalume.aacplayer"
+        version="0.1.0">
+
+  <name>Vagalume AAC Player</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/aacplayer.js" target="js/aacplayer.js"/>
+
+  <js-module src="www/aacplayer.js" name="aacplayer">
+    <clobbers target="aacplayer" />
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="PlayerAAC">
+        <param name="android-package" value="br.com.vagalume.plugin.PlayerAAC"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/PlayerAAC.java" target-dir="src/br/com/vagalume/plugin/"/>
+    <source-file src="lib/android/aacdecoder-android-0.8.jar" target-dir="libs" />
+    <source-file src="lib/android/mips" target-dir="libs" />
+    <source-file src="lib/android/x86" target-dir="libs" />
+    <source-file src="lib/android/armeabi" target-dir="libs" />
+    <source-file src="lib/android/armeabi-v7a" target-dir="libs" />
+  </platform>
+
+</plugin>
