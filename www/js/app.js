@@ -60,11 +60,10 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 		})
 }])
 
-// Constante da URL da rádio
-.constant('radioURL', 'vagalume-fm')
+.constant('RadioURL', false)
 
 // Controller
-.controller('PlayerController', function($scope, $rootScope, $timeout, $ionicSlideBoxDelegate, Player, RadioModel, ControlEvents, ButtonModel, radioURL) {
+.controller('PlayerController', function($scope, $rootScope, $timeout, $http, $ionicSlideBoxDelegate, Player, RadioModel, ControlEvents, ButtonModel, RadioURL) {
 	// Função quando muda a TAB
 	var slideHasChanged = function(index) {
 		$scope.currentTab = index;
@@ -80,15 +79,15 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 
 						$rootScope.radio.mapSongs[date][i].bandURL = bandURL;
 					}
-					if (song.title) {
+					if (song.band) {
 						$rootScope.radio.mapSongs[date][i].link = 'intent://lyrics/'+bandURL+'/'+songURL+'/'+song.id+'#Intent;scheme=vagalume;package=br.com.vagalume.android;S.browser_fallback_url=http%3A%2F%2Fm.vagalume.com.br%2F'+bandURL+'%2F'+songURL+'.html;launchFlags=0x8080000;end';
 						$rootScope.radio.mapSongs[date][i].background = 'background-image: url(http://s2.vagalume.com/'+bandURL+'/images/'+bandURL+'.jpg)';
+						$rootScope.radio.mapSongs[date][i].radioTitle = $rootScope.radio.mapSongs[date][i].radioTitle.split(' - ')[1];
 					} else {
 						$rootScope.radio.mapSongs[date][i].background = 'background-image: url(http://s2.vagalume.com/radio/image/'+$rootScope.radio.descr_url+'.jpg)';
 					}
 				};
 				$rootScope.recentSongs = $rootScope.radio.mapSongs[date];
-				console.log(JSON.stringify($rootScope.recentSongs))
 			}
 		} else {
 			$rootScope.recentSongs = false;
@@ -100,12 +99,17 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 			if (Player.status == 'playing') Player.stop();
 
 			// Colocar streaming para tocar
-			Player.setStreams(data.streamings);
+			Player.setStreams(data.stream);
 			Player.play();
 
 			// Informação da rádio
 			$rootScope.radio = data;
 			$rootScope.player = Player;
+
+			RadioModel.getRadioSonglist($rootScope.radio.id, function(data) {
+				$rootScope.radio.mapSongs = data;
+				buildRecentSongs();
+			});
 
 			// Montar músicas/artistas recentes
 			buildRecentSongs();
@@ -118,8 +122,11 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 	,   initPlayer = function() {
 		// Inicializar o player
 		Player.media && Player.destroy();
-		// Pegar informação da rádio
-		RadioModel.getRadioInfo(radioURL, resRadioInfo);
+		// Pegar informação da rádio		
+		$http.get('manifest.json')
+		.success(function(data) {
+			RadioModel.getRadioInfo(data.radioID, resRadioInfo);
+		});
 	}
 	,   share = function() {
 		var message = '';
@@ -140,9 +147,9 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 	}
 	,   changeRankFilter = function(type) {
 		if (type == 'songs') {
-			$rootScope.rankRadio = $rootScope.radio.topSongs.length ? $rootScope.radio.topSongs : false;
+			$rootScope.rankRadio = $rootScope.radio.songRank.length ? $rootScope.radio.songRank : false;
 		} else {
-			$rootScope.rankRadio = $rootScope.radio.topBands.length ? $rootScope.rankRadio : false;
+			$rootScope.rankRadio = $rootScope.radio.bandRank.length ? $rootScope.radio.bandRank : false;
 		}
 	}
 	,   openLyrics = function(song) {
@@ -174,11 +181,11 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 					window.open('http://m.vagalume.com.br/'+bandURL+'/'+songURL+'.html', '_system', 'location=no');
 				}
 			);
-		} else if (song.bandURL) {
+		} else if (song.band.descr_url) {
             if (ionic.Platform.isAndroid()) {
-                var url = 'vagalume://lyrics/'+song.bandURL+'/'+song.songURL+'/'+song.songID+'#Intent;scheme=vagalume;package=br.com.vagalume.android;S.browser_fallback_url=http%3A%2F%2Fm.vagalume.com.br%2F'+song.bandURL+'%2F'+song.songURL+'.html;launchFlags=0x8080000;end';
+                var url = 'vagalume://lyrics/'+song.band.descr_url+'/'+song.descr_url+'/'+song.id+'#Intent;scheme=vagalume;package=br.com.vagalume.android;S.browser_fallback_url=http%3A%2F%2Fm.vagalume.com.br%2F'+song.band.descr_url+'%2F'+song.descr_url+'.html;launchFlags=0x8080000;end';
             } else {
-                var url = scheme + 'www.vagalume.com.br/' + song.bandURL+'/'+song.songURL+'.html';
+                var url = scheme + 'www.vagalume.com.br/' + song.band.descr_url+'/'+song.descr_url+'.html';
             }
 
 			appAvailability.check(
@@ -187,7 +194,7 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 					window.open(url, '_system', 'location=no');
 				},
 				function() {
-					window.open('http://m.vagalume.com.br/'+song.bandURL+'/'+song.songURL+'.html', '_system', 'location=no');
+					window.open('http://m.vagalume.com.br/'+song.band.descr_url+'/'+song.descr_url+'.html', '_system', 'location=no');
 				}
 			);
 		}
@@ -255,12 +262,10 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 			player.status = 'none';
 		},
 		buffering: function() {
-			console.log('Events:', 'buffering', player.streamings[current].url);
 			player.status = 'buffering';
 			$rootScope.$emit('player.buffering');
 		},
 		playing: function() {
-			console.log('Events:', 'playing');
 			$timeout.cancel(errorTimeout);
 			$timeout.cancel(connectionTimeout);
 			if (!currentInterval) {
@@ -275,13 +280,11 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 			MusicControls.updateIsPlaying(true);
 		},
 		paused: function() {
-			console.log('Events:', 'paused');
 			player.status = 'paused';
 			$rootScope.$emit('player.pause');
 			MusicControls.updateIsPlaying(false);
 		},
 		stopped: function() {
-			console.log('Events:', 'stopped');
 			if (player.forceStop === 1) {
 				$rootScope.$emit('player.pause');
 				player.status = 'paused';
@@ -302,7 +305,6 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 			};
 		},
 		unknown: function() {
-			console.log('Events:', 'unknown');
 			player.status = 'unknown';
 		}
 	};
@@ -359,7 +361,7 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 				$rootScope.radio.currentSong = data;
 
 				var last = $rootScope.recentSongs[0];
-				if (last.id != data.id) {
+				if (!last || last.id != data.id) {
 					var item = {
 						radioTitle: data.title,
 						id: data.id,
@@ -375,6 +377,10 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 						item.background = 'background-image: url(http://s2.vagalume.com/'+bandURL+'/images/'+bandURL+'.jpg)';
 					} else {
 						item.background = 'background-image: url(http://s2.vagalume.com/radio/image/'+$rootScope.radio.descr_url+'.jpg)';
+					}
+
+					if (!$rootScope.recentSongs) {
+						$rootScope.recentSongs = [];
 					}
 
 					$rootScope.recentSongs.unshift(item);
@@ -613,14 +619,15 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 	return player;
 })
 
-.factory('RadioModel', function($http, $rootScope) {
+.factory('RadioModel', function($http, $rootScope, RadioURL) {
 	var RadioModel = {};
 
 	// Pega as informações da rádio e URL de streamings
-	RadioModel.getRadioInfo = function(radioURL, cb) {
-		$http.get('http://app2.vagalume.com.br/radio/api.php?action=getRadioInfo&noRTMP=1&2&radioURL='+radioURL)
+	RadioModel.getRadioInfo = function(radioID, cb) {
+		$http.get('http://www.vagalume.com.br.s3-website-us-east-1.amazonaws.com/json/radio/'+radioID+'.json')
 		.success(function(data) {
 			if (data.id) {
+				RadioURL = data.descr_url;
 				cb && cb(data);
 			} else {
 				cb && cb(false);
@@ -630,6 +637,20 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 			cb && cb(false);
 		});
 	};
+
+	RadioModel.getRadioSonglist = function(radioID, cb) {
+		$http.get('http://app2.vagalume.com.br/radio/api.php?action=songlist&radioID='+radioID)
+		.success(function(data) {
+			if (data) {
+				cb && cb(data);
+			} else {
+				cb && cb(false);
+			}
+		})
+		.error(function(e) {
+			cb && cb(false);
+		});		
+	}
 
 	RadioModel.sendErrorLog = function(radioID) {
 		$http.get('http://app.vagalume.com.br/service/fm/player-error?id='+radioID);

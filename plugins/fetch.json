@@ -17,9 +17,8 @@
     },
     "cordova-plugin-splashscreen": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/apache/cordova-plugin-splashscreen.git",
-            "subdir": "."
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen"
         },
         "is_top_level": true,
         "variables": {}
@@ -54,15 +53,6 @@
             "id": "cordova-plugin-file"
         },
         "is_top_level": false,
-        "variables": {}
-    },
-    "cordova-plugin-music-controls": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/homerours/cordova-music-controls-plugin",
-            "subdir": "."
-        },
-        "is_top_level": true,
         "variables": {}
     },
     "cordova-plugin-x-socialsharing": {
@@ -105,14 +95,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-crosswalk-webview": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-crosswalk-webview"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-velda-devicefeedback": {
         "source": {
             "type": "registry",
@@ -133,6 +115,22 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-appavailability"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-crosswalk-webview": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-crosswalk-webview"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-music-controls": {
+        "source": {
+            "type": "local",
+            "path": "/home/lucas/cordova-plugins/cordova-plugin-music-controls"
         },
         "is_top_level": true,
         "variables": {}
