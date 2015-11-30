@@ -17,6 +17,9 @@ module.exports = {
 		if (data.isPlaying === undefined){
 			data.isPlaying = true;
 		}
+		if (data.subText === undefined){
+			data.subText = '';
+		}
         cordova.exec(successCallback, errorCallback, 'MusicControls', 'create', [data]);
     },
 

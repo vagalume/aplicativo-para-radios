@@ -47,8 +47,8 @@
 						</div>
 					</div>
 					<div class="controls">				
-						<h3 ui-sref="artist({bandURL: radio.currentSong.bandURL})" ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.song}}</h3>
-						<p ui-sref="artist({bandURL: radio.currentSong.bandURL})" ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.band}}</p>
+						<h3 ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.song}}</h3>
+						<p ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.band}}</p>
 		                <p ng-show="radio.status == 'buffering' && !playerError && !radio.currentSong" class="ng-hide">Carregando streaming...</p>
 						<p ng-show="radio.currentSong && radio.currentSong.noSong && radio.currentSong.title">{{radio.currentSong.title}}</p>
 						<button ng-click="player.toggle()" class="play-pause ion-loading-c"></button>
@@ -80,11 +80,12 @@
 					<ul>
 						<p ng-hide="rankRadio">Sem ranking no momento</p>
 						<li ng-repeat="(key, song) in rankRadio track by $index">
-							<div ng-click="openLyrics(song)" data-pos="{{key + 1 | position}}" style="background: url(http://s2.vagalume.com/{{song.bandURL}}/images/{{song.bandURL}}.jpg)"></div>
-							<p ng-click="openLyrics(song)" ng-show="rankType == 'songs'">{{song.songName}}</p>
-							<p ng-hide="rankType == 'songs'">{{song.bandName}}</p>
-							<span ng-click="openLyrics(song)" ng-show="rankType == 'songs'">{{song.bandName}}</span>
-							<button class="ion-document-text" ng-show="rankType == 'songs'" ng-click="openLyrics(song)"></button>
+							<div ng-if="rankType == 'songs'" ng-click="feel()" data-pos="{{key + 1 | position}}" style="background: url(http://s2.vagalume.com/{{song.band.descr_url}}/images/{{song.band.descr_url}}.jpg)"></div>
+							<div ng-if="rankType != 'songs'" ng-click="feel()" data-pos="{{key + 1 | position}}" style="background: url(http://s2.vagalume.com/{{song.descr_url}}/images/{{song.descr_url}}.jpg)"></div>
+							<p ng-click="feel()" ng-if="rankType == 'songs'">{{song.descr}}</p>
+							<p ng-if="rankType != 'songs'">{{song.descr}}</p>
+							<span ng-click="feel()" ng-if="rankType == 'songs'">{{song.band.descr}}</span>
+							<button class="ion-document-text" ng-if="rankType == 'songs'" ng-click="openLyrics(song)"></button>
 						</li>				
 					</ul>
 				</ion-slide>

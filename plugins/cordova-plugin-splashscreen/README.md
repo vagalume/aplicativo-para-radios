@@ -19,14 +19,15 @@
 
 # cordova-plugin-splashscreen
 
-[![Build Status](https://travis-ci.org/apache/cordova-plugin-splashscreen.svg)](https://travis-ci.org/apache/cordova-plugin-splashscreen)
-
 This plugin displays and hides a splash screen during application launch.
 
-## Installation 
+:warning: Report issues on the [Apache Cordova issue tracker](https://issues.apache.org/jira/issues/?jql=project%20%3D%20CB%20AND%20status%20in%20%28Open%2C%20%22In%20Progress%22%2C%20Reopened%29%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22Plugin%20Splashscreen%22%20ORDER%20BY%20priority%20DESC%2C%20summary%20ASC%2C%20updatedDate%20DESC)
+
+## Installation
 
     // npm hosted (new) id
     cordova plugin add cordova-plugin-splashscreen
+
     // you may also install directly from this repo
     cordova plugin add https://github.com/apache/cordova-plugin-splashscreen.git
 
@@ -41,18 +42,29 @@ This plugin displays and hides a splash screen during application launch.
 - Windows
 - Browser
 
+## Preferences
 
-## Methods
+#### config.xml
 
-- splashscreen.show
-- splashscreen.hide
+-  __SplashScreen__ (string). The resource name which is used for the displaying splash screen. Different platforms use values for this.
+
+        <preference name="SplashScreen" value="resourcename" />
+
+-  __AutoHideSplashScreen__ (boolean, default to `true`). Indicates wherether hide splash screen automatically or not. Splash screen hidden after amount of time specified in the `SplashScreenDelay` preference.
+
+        <preference name="AutoHideSplashScreen" value="true" />
+
+-  __SplashScreenDelay__ (number, default to 3000). Amount of time in milliseconds to wait before automatically hide splash screen.
+
+        <preference name="SplashScreenDelay" value="3000" />
+
 
 ### Android Quirks
 
 In your `config.xml`, you need to add the following preferences:
 
     <preference name="SplashScreen" value="foo" />
-    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="SplashScreenDelay" value="3000" />
     <preference name="SplashMaintainAspectRatio" value="true|false" />
 
 Where foo is the name of the splashscreen file, preferably a 9 patch file. Make sure to add your splashcreen files to your res/xml directory under the appropriate folders. The second parameter represents how long the splashscreen will appear in milliseconds. It defaults to 3000 ms. See [Icons and Splash Screens](http://cordova.apache.org/docs/en/edge/config_ref_images.md.html)
@@ -68,7 +80,7 @@ You can use the following preferences in your `config.xml`:
 
     <platform name="browser">
         <preference name="SplashScreen" value="images/browser/splashscreen.jpg" /> <!-- defaults to "img/logo.png" -->
-        <preference name="SplashScreenDelay" value="10000" /> <!-- defaults to "3000" -->
+        <preference name="SplashScreenDelay" value="3000" /> <!-- defaults to "3000" -->
         <preference name="SplashScreenBackgroundColor" value="green" /> <!-- defaults to "#464646" -->
         <preference name="ShowSplashScreen" value="false" /> <!-- defaults to "true" -->
         <preference name="SplashScreenWidth" value="600" /> <!-- defaults to "170" -->
@@ -84,15 +96,23 @@ You can use the following preferences in your `config.xml`:
 
         <preference name="FadeSplashScreen" value="false"/>
 
-- `FadeSplashScreenDuration` (float, defaults to `2`): Specifies the
-  number of seconds for the splash screen fade effect to execute.
+- `FadeSplashScreenDuration` (float, defaults to `3000`): Specifies the
+  number of milliseconds for the splash screen fade effect to execute.
 
-        <preference name="FadeSplashScreenDuration" value="4"/>
+        <preference name="FadeSplashScreenDuration" value="3000"/>
+
+Note also that this value used to be seconds, and not milliseconds, so values less than 30 will still be treated as seconds. ( Consider this a deprecated patch that will disapear in some future version. )
+
 
 - `ShowSplashScreenSpinner` (boolean, defaults to `true`): Set to `false`
   to hide the splash-screen spinner.
 
         <preference name="ShowSplashScreenSpinner" value="false"/>
+
+## Methods
+
+- splashscreen.show
+- splashscreen.hide
 
 ## splashscreen.hide
 
@@ -128,4 +148,3 @@ event. See [Icons and Splash Screens](http://cordova.apache.org/docs/en/edge/con
 for more information on doing this configuration. For this reason, it is
 unlikely you need to call `navigator.splashscreen.show()` to make the splash
 screen visible for app startup.
-
