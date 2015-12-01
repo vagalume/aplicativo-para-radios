@@ -10,9 +10,49 @@ O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contra
 
 A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](https://github.com/vagalume/aplicativo-para-radios/issues) pelo GitHub.
 
+## Adicionando uma plataforma
+
+```bash
+#Android
+ionic platform add android
+
+#IOS
+ionic platform add ios
+```
+
 ## Customização do projeto
 
-* Nome da rádio
-* Tela de splash
+Existe algumas configurações que você precisa fazer para deixar seu aplicativo completamente dedicado para sua Rádio.
+
+ID da Rádio
+
+* Você precisa colocar o seu ID da Rádio no arquivo `www/manifest.json`.
+
+Tela de splash
+* Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash 
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
+
+## Configuração do aplicativo
+
+Você pode configurar o nome, versão, pacote e outras informaçãos do seu aplicativo no arquivo `config.xml`.
+
+Nome do aplicativo: `<name>Nome do seu aplicativo</name>`
+
+Versão do aplicativo(version) e o pacote(id): `<widget id="fm.vagalume" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">`
+
+## Testando seu aplicativo
+
+Segue um link do IONIC para você conseguir fazer todos os testes e emular no seu dispositivo o seu aplicativo.
+
+<a href="http://ionicframework.com/docs/guide/testing.html">http://ionicframework.com/docs/guide/testing.html</a>
+
+## Publicando seu aplicativo
+
+Logo depois de você fazer todas modificações e testar seu aplicativo, você pode publicar seu aplicativo gerando o APK para poder subir na Google Play ou Apple Store.
+
+Segue um link do IONIc com exemplos para poder gerar o APK.
+
+<a href="http://ionicframework.com/docs/guide/publishing.html">http://ionicframework.com/docs/guide/publishing.html</a>
+
+
