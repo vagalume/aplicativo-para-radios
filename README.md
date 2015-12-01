@@ -12,7 +12,7 @@ A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](h
 
 ## Customização do projeto
 
-* Nome da rádio
+* Rádio Arquivo do Rock
 * Tela de splash
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
