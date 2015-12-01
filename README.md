@@ -1,13 +1,18 @@
-Para uma melhor descrição do nosso aplicativo acessa a nossa [documentação](http://vagalume.fm).
+# Aplicativo Android/IOS para Rádio Web
 
-# O que é o aplicativo para rádios?
+O [Vagalume](http://www.vagalume.com.br/) disponibilizou gratuitamente o código fonte para você criar um aplicativo para Android e IOS para sua rádio. O código pode ser compilado e disponibilizado para dispositivos Android (Google Play) e IOS (App Store).
 
-O aplicativo de rádios do Vagalume é a forma mais simples de você, dono de uma rádio cadastrada no nosso site, de disponibilizar para seus ouvintes um aplicativo para Android e iOS para ouvir a sua programação onde e quando quiser.
+## Contratação de Desenvolvedores
 
-![Vagalume Rádios](http://s2.vagalume.com.br/images/aplicativo_radios.jpg)
+O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contratados pela rádio para fazer a customização do aplicativo. A contratação não tem nenhum vínculo com o Vagalume, é apenas uma indicação de desenvolvedores.
 
-Nosso aplicativo foi desenvolvido usando framework Ionic para aplicativos nativos híbridos, se você quiser saber mais sobre, leia a documentação oficial clicando [aqui](http://ionicframework.com/docs/). É importante lembrar que você não precisa ter noção nenhuma sobre como desenvolver um aplicativo para utilizar o nosso projeto, nós do Vagalume já cuidamos disso para você. 
+* _Criar Pull Request adicionando seu nome aqui_
 
-## Como utilizar
+A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](https://github.com/vagalume/aplicativo-para-radios/issues) pelo GitHub.
 
-Para utilizar o aplicativo de rádios do Vagalume você precisa ter uma rádio cadastrada no nosso site. Caso você não tenha uma conta no Vagalume você pode fazer o seu cadastro clicando [aqui](http://auth.vagalume.com.br/).
+## Customização do projeto
+
+* Nome da rádio
+* Tela de splash
+
+Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
