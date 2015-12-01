@@ -46,17 +46,17 @@
 							<div style="background: url(http://s2.vagalume.com/radio/image/{{radio.descr_url}}.jpg);"></div>
 						</div>
 					</div>
-					<div class="controls">				
+					<div class="controls">
 						<h3 ui-sref="artist({bandURL: radio.currentSong.bandURL})" ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.song}}</h3>
 						<p ui-sref="artist({bandURL: radio.currentSong.bandURL})" ng-show="radio.currentSong && radio.currentSong.song">{{radio.currentSong.band}}</p>
-		                <p ng-show="radio.status == 'buffering' && !playerError && !radio.currentSong" class="ng-hide">Carregando streaming...</p>
+						<p ng-show="radio.status == 'buffering' && !playerError && !radio.currentSong" class="ng-hide">Carregando streaming...</p>
 						<p ng-show="radio.currentSong && radio.currentSong.noSong && radio.currentSong.title">{{radio.currentSong.title}}</p>
 						<button ng-click="player.toggle()" class="play-pause ion-loading-c"></button>
-						<button ng-click="share()" class="share ion-android-share-alt"></button>
+						<button on-tap="share()" class="share ion-android-share-alt"></button>
 					</div>
 				</ion-slide>
 				<ion-slide class="recent-songs">
-					<p ng-hide="recentSongs">A rádio não informa as músicas tocadas</p>			
+					<p ng-hide="recentSongs">A rádio não informa as músicas tocadas</p>
 					<ul>
 						<li ng-class="{'lyrics': song.id}" ng-repeat="(key, song) in recentSongs track by $index">
 							<div ng-click="openLyrics(song)" data-time="{{song.hour | radioTime}}" style="{{song.background}}"></div>
@@ -73,7 +73,7 @@
 							Mais tocados
 						</div>
 						<select ng-model="rankType" ng-change="changeRankFilter(rankType)">
-							<option selected value="songs">Músicas</option>				
+							<option selected value="songs">Músicas</option>
 							<option value="artists">Artistas</option>
 						</select>
 					</label>
@@ -85,7 +85,7 @@
 							<p ng-hide="rankType == 'songs'">{{song.bandName}}</p>
 							<span ng-click="openLyrics(song)" ng-show="rankType == 'songs'">{{song.bandName}}</span>
 							<button class="ion-document-text" ng-show="rankType == 'songs'" ng-click="openLyrics(song)"></button>
-						</li>				
+						</li>
 					</ul>
 				</ion-slide>
 			</ion-slide-box>
