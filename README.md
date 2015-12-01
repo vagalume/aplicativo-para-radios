@@ -33,6 +33,8 @@ Tela de splash
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
 
+Documentação das requisições de Rádios se encontra na nossa [API](http://api.vagalume.com.br/docs/radios/).
+
 ## Configuração do aplicativo
 
 Você pode configurar o nome, versão, pacote e outras informaçãos do seu aplicativo no arquivo `config.xml`.
@@ -45,7 +47,7 @@ Versão do aplicativo(version) e o pacote(id): `<widget id="fm.vagalume" version
 
 Segue um link do IONIC para você conseguir fazer todos os testes e emular no seu dispositivo o seu aplicativo.
 
-<a href="http://ionicframework.com/docs/guide/testing.html">http://ionicframework.com/docs/guide/testing.html</a>
+http://ionicframework.com/docs/guide/testing.html
 
 ## Publicando seu aplicativo
 
@@ -53,6 +55,6 @@ Logo depois de você fazer todas modificações e testar seu aplicativo, você p
 
 Segue um link do IONIc com exemplos para poder gerar o APK.
 
-<a href="http://ionicframework.com/docs/guide/publishing.html">http://ionicframework.com/docs/guide/publishing.html</a>
+http://ionicframework.com/docs/guide/publishing.html
 
 
