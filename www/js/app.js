@@ -56,12 +56,12 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 		.state('player', {
 			url: '/player',
 			templateUrl: 'player.html',
-			controller: 'PlayerController'		
+			controller: 'PlayerController'
 		})
 }])
 
 // Constante da URL da rádio
-.constant('radioURL', 'vagalume-fm')
+.constant('radioURL', 'radio-arquivo-do-rock')
 
 // Controller
 .controller('PlayerController', function($scope, $rootScope, $timeout, $ionicSlideBoxDelegate, Player, RadioModel, ControlEvents, ButtonModel, radioURL) {
