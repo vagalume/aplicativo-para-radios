@@ -6,13 +6,13 @@ O [Vagalume](http://www.vagalume.com.br/) disponibilizou gratuitamente o código
 
 O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contratados pela rádio para fazer a customização do aplicativo. A contratação não tem nenhum vínculo com o Vagalume, é apenas uma indicação de desenvolvedores.
 
-* _Criar Pull Request adicionando seu nome aqui_
+* Pedro Brasileiro (contato@pedrobrasileiro.com.br)
 
 A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](https://github.com/vagalume/aplicativo-para-radios/issues) pelo GitHub.
 
 ## Customização do projeto
 
-* Nome da rádio
+* Rádio Arquivo do Rock
 * Tela de splash
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).

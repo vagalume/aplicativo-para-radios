@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "br.com.vagalume.aacplayer": {
+            "PACKAGE_NAME": "fm.vagalume"
+        },
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "fm.vagalume"
+        },
+        "cordova-plugin-appavailability": {
+            "PACKAGE_NAME": "fm.vagalume"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "fm.vagalume"
+        }
+    },
+    "dependent_plugins": {}
+}
