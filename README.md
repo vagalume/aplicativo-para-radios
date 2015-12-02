@@ -27,6 +27,7 @@ Existe algumas configurações que você precisa fazer para deixar seu aplicativ
 ID da Rádio
 
 * Você precisa colocar o seu ID da Rádio no arquivo `www/manifest.json`.
+* Você consegue o ID da sua rádio na sua listagem de rádios no [Vagalume](https://auth.vagalume.com.br/settings/radio/).
 
 Tela de splash
 * Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash 
