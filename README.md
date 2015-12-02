@@ -8,6 +8,8 @@ O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contra
 
 **Leonardo Flores** - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
 
+**Cleiton Tavares** - [GitHub](https://github.com/cleiton-tavares) / [Facebook](https://www.facebook.com/cleiton.tavares) / [Email](mailto:cleitontavares@live.com) / [Twitter](https://twitter.com/cleiton_tav)
+
 A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](https://github.com/vagalume/aplicativo-para-radios/issues) pelo GitHub.
 
 ## Adicionando uma plataforma
