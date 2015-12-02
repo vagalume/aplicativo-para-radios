@@ -8,6 +8,9 @@ O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contra
 
 **Leonardo Flores** - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
 
+**Pedro Brasileiro** - [GitHub](https://github.com/pedrobrasileiro)  / [Email](mailto:contato@pedrobrasileiro.com.br) / [Twitter](https://twitter.com/pedrobrasileiro)
+
+
 A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](https://github.com/vagalume/aplicativo-para-radios/issues) pelo GitHub.
 
 ## Adicionando uma plataforma
@@ -29,7 +32,7 @@ ID da Rádio
 * Você precisa colocar o seu ID da Rádio no arquivo `www/manifest.json`.
 
 Tela de splash
-* Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash 
+* Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
 
@@ -56,5 +59,3 @@ Logo depois de você fazer todas modificações e testar seu aplicativo, você p
 Segue um link do IONIc com exemplos para poder gerar o APK.
 
 http://ionicframework.com/docs/guide/publishing.html
-
-
