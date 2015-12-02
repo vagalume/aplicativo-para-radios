@@ -6,7 +6,7 @@ O [Vagalume](http://www.vagalume.com.br/) disponibilizou gratuitamente o código
 
 O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contratados pela rádio para fazer a customização do aplicativo. A contratação não tem nenhum vínculo com o Vagalume, é apenas uma indicação de desenvolvedores.
 
-* _Criar Pull Request adicionando seu nome aqui_
+**Leonardo Flores** - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
 
 A equipe do Vagalume poderá ajudar quando for necessário. [Entre em contato](https://github.com/vagalume/aplicativo-para-radios/issues) pelo GitHub.
 
