@@ -6,10 +6,10 @@ O [Vagalume](http://www.vagalume.com.br/) disponibilizou gratuitamente o código
 
 O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contratados pela rádio para fazer a customização do aplicativo. A contratação não tem nenhum vínculo com o Vagalume, é apenas uma indicação de desenvolvedores (em ordem alfabética).
 
-* *Caio Norder* - [GitHub](https://github.com/caionorder) / [Facebook](https://www.facebook.com/caio.norder) / [Email](mailto:caio@caionorder.com) / [Twitter](https://twitter.com/caionorder)
-* *Cleiton Tavares* - [GitHub](https://github.com/cleiton-tavares) / [Facebook](https://www.facebook.com/cleiton.tavares) / [Email](mailto:cleitontavares@live.com) / [Twitter](https://twitter.com/cleiton_tav)
-* *Leonardo Flores* - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
-* *Pedro Brasileiro* - [GitHub](https://github.com/pedrobrasileiro)  / [Email](mailto:contato@pedrobrasileiro.com.br) / [Twitter](https://twitter.com/pedrobrasileiro)
+* [Caio Norder](https://github.com/caionorder)
+* [Cleiton Tavares](https://github.com/cleiton-tavares)
+* [Leonardo Flores](https://github.com/leonardocouy)
+* [Pedro Brasileiro](https://github.com/pedrobrasileiro)
 
 Desenvolvedores: _Envie um Pull Request adicionando seu nome como desenvolvedor Ionic e colabore com o projeto!_
 
@@ -18,10 +18,10 @@ A equipe do Vagalume sempre poderá ajudar quando for necessário. [Entre em con
 ## Adicionando uma plataforma
 
 ```bash
-#Android
+# Android
 ionic platform add android
 
-#IOS
+# IOS
 ionic platform add ios
 ```
 
@@ -29,13 +29,12 @@ ionic platform add ios
 
 Existe algumas configurações que você precisa fazer para deixar seu aplicativo completamente dedicado para sua Rádio.
 
-ID da Rádio
+*ID da Rádio*
+* Coloque o ID da Rádio no arquivo `www/manifest.json`.
+* O ID da rádio está disponível no seu [cadastro no Vagalume](https://auth.vagalume.com.br/settings/radio/).
 
-* Você precisa colocar o seu ID da Rádio no arquivo `www/manifest.json`.
-* Você consegue o ID da sua rádio na sua listagem de rádios no [Vagalume](https://auth.vagalume.com.br/settings/radio/).
-
-Tela de splash
-* Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash
+*Tela de splash*
+* Adicione as imagens seguindo a [documentação do Ionic](http://ionicframework.com/docs/cli/icon-splashscreen.html).
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
 
@@ -51,7 +50,7 @@ Versão do aplicativo(version) e o pacote(id): `<widget id="fm.vagalume" version
 
 ## Testando seu aplicativo
 
-Segue um link do IONIC para você conseguir fazer todos os testes e emular no seu dispositivo o seu aplicativo.
+Segue um link do Ionic para você conseguir fazer todos os testes e emular no seu dispositivo o seu aplicativo.
 
 http://ionicframework.com/docs/guide/testing.html
 
