@@ -8,6 +8,7 @@ O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contra
 
 * *Leonardo Flores* - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
 * *Caio Norder* - [GitHub](https://github.com/caionorder) / [Facebook](https://www.facebook.com/caio.norder) / [Email](mailto:caio@caionorder.com) / [Twitter](https://twitter.com/caionorder)
+* *Pedro Brasileiro* - [GitHub](https://github.com/pedrobrasileiro)  / [Email](mailto:contato@pedrobrasileiro.com.br) / [Twitter](https://twitter.com/pedrobrasileiro)
 
 Desenvolvedores: _Envie um Pull Request adicionando seu nome como desenvolvedor Ionic e colabore com o projeto!_
 
@@ -33,7 +34,7 @@ ID da Rádio
 * Você consegue o ID da sua rádio na sua listagem de rádios no [Vagalume](https://auth.vagalume.com.br/settings/radio/).
 
 Tela de splash
-* Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash 
+* Segue um <a href="http://ionicframework.com/docs/cli/icon-splashscreen.html">link</a> para trocar o splash
 
 Todas as informações adicionais (stream, logo da rádio e últimas músicas tocadas) são baixadas da API do Vagalume. É necessário a rádio estar cadastrada no [Vagalume Rádios](http://www.vagalume.com.br/radio/).
 
@@ -60,5 +61,3 @@ Logo depois de você fazer todas modificações e testar seu aplicativo, você p
 Segue um link do IONIc com exemplos para poder gerar o APK.
 
 http://ionicframework.com/docs/guide/publishing.html
-
-
