@@ -4,10 +4,11 @@ O [Vagalume](http://www.vagalume.com.br/) disponibilizou gratuitamente o código
 
 ## Contratação de Desenvolvedores
 
-O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contratados pela rádio para fazer a customização do aplicativo. A contratação não tem nenhum vínculo com o Vagalume, é apenas uma indicação de desenvolvedores.
+O Vagalume indica abaixo alguns desenvolvedores freelancers que podem ser contratados pela rádio para fazer a customização do aplicativo. A contratação não tem nenhum vínculo com o Vagalume, é apenas uma indicação de desenvolvedores (em ordem alfabética).
 
-* *Leonardo Flores* - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
 * *Caio Norder* - [GitHub](https://github.com/caionorder) / [Facebook](https://www.facebook.com/caio.norder) / [Email](mailto:caio@caionorder.com) / [Twitter](https://twitter.com/caionorder)
+* *Cleiton Tavares* - [GitHub](https://github.com/cleiton-tavares) / [Facebook](https://www.facebook.com/cleiton.tavares) / [Email](mailto:cleitontavares@live.com) / [Twitter](https://twitter.com/cleiton_tav)
+* *Leonardo Flores* - [GitHub](https://github.com/leonardocouy) / [Facebook](https://www.facebook.com/leonardo.claw) / [Email](mailto:leonardocouy@hotmail.com) / [Twitter](https://twitter.com/_iamleofc)
 * *Pedro Brasileiro* - [GitHub](https://github.com/pedrobrasileiro)  / [Email](mailto:contato@pedrobrasileiro.com.br) / [Twitter](https://twitter.com/pedrobrasileiro)
 
 Desenvolvedores: _Envie um Pull Request adicionando seu nome como desenvolvedor Ionic e colabore com o projeto!_
