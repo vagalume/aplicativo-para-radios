@@ -624,7 +624,7 @@ function($stateProvider, $urlRouterProvider, $locationProvider, $ionicConfigProv
 
 	// Pega as informações da rádio e URL de streamings
 	RadioModel.getRadioInfo = function(radioID, cb) {
-		$http.get('http://www.vagalume.com.br.s3-website-us-east-1.amazonaws.com/json/radio/'+radioID+'.json')
+		$http.get('http://www.vagalume.com.br/json/radio/'+radioID+'.json')
 		.success(function(data) {
 			if (data.id) {
 				RadioURL = data.descr_url;
