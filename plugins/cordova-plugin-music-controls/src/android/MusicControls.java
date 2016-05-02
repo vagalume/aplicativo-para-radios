@@ -37,6 +37,8 @@ public class MusicControls extends CordovaPlugin {
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-pause"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-play"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-close"));
+		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-favorite"));
+		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-not-favorite"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-next"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-media-button"));
 
@@ -100,7 +102,13 @@ public class MusicControls extends CordovaPlugin {
 			final boolean isPlaying = params.getBoolean("isPlaying");
 			this.notification.updateIsPlaying(isPlaying);
 			callbackContext.success("success");
-		}		
+		}
+		else if (action.equals("updateIsFavorite")){
+			final JSONObject params = args.getJSONObject(0);
+			final boolean isFavorite = params.getBoolean("isFavorite");
+			this.notification.updateIsFavorite(isFavorite);
+			callbackContext.success("success");
+		}
 		else if (action.equals("destroy")){
 			this.notification.destroy();
 			this.mMessageReceiver.stopListening();

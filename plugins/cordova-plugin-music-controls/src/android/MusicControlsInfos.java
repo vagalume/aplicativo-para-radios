@@ -11,6 +11,7 @@ public class MusicControlsInfos{
 	public String ticker;
 	public String coverURL;
 	public boolean isPlaying;
+	public boolean isFavorite;
 
 	public MusicControlsInfos(JSONArray args) throws JSONException {
 		final JSONObject params = args.getJSONObject(0);
@@ -20,5 +21,6 @@ public class MusicControlsInfos{
 		this.ticker = params.getString("ticker");
 		this.coverURL = params.getString("cover");
 		this.isPlaying= params.getBoolean("isPlaying");
+		this.isFavorite= params.getBoolean("isFavorite");
 	}
 }

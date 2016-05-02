@@ -27,6 +27,10 @@ import android.os.Build;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.media.AudioManager;
+import android.media.RemoteControlClient;
+import android.media.RemoteControlClient.MetadataEditor;
+import android.media.MediaMetadataRetriever;
 
 public class MusicControlsNotification {
 	private Activity cordovaActivity;
@@ -37,8 +41,12 @@ public class MusicControlsNotification {
 	private int play_btn;
 	private int pause_btn;
 	private int close_btn;
+	private int favorite_btn;
+	private int not_favorite_btn;
 	private String currentCoverURL;
 	private Bitmap currentCover;
+	private RemoteControlClient mRemoteControlClient;
+	private Bitmap uncroppedImage = null;
 
 	public MusicControlsNotification(Activity cordovaActivity,int id) {
 		this.notificationID = id;
@@ -52,6 +60,18 @@ public class MusicControlsNotification {
 		play_btn = res.getIdentifier("ic_play_arrow", "drawable", packageName);
 		pause_btn = res.getIdentifier("ic_pause", "drawable", packageName);
 		close_btn = res.getIdentifier("ic_close", "drawable", packageName);
+		favorite_btn = res.getIdentifier("ic_favorite_white", "drawable", packageName);
+		not_favorite_btn = res.getIdentifier("ic_favorite_border_white", "drawable", packageName);
+
+		AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+            // mediaButtonIntent.setComponent(mRemoteControlClientReceiverComponent);
+            PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(context, 0, mediaButtonIntent, 0);
+
+			mRemoteControlClient = new RemoteControlClient(mediaPendingIntent);
+            audioManager.registerRemoteControlClient(mRemoteControlClient);
+		}
 	}
 
 	private Bitmap getBitmapFromURL(String strURL) {
@@ -93,10 +113,11 @@ public class MusicControlsNotification {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
 			builder.setStyle(new Notification.MediaStyle()
 				// Action indexes to be shown on compact view
-				.setShowActionsInCompactView(new int[] {0, 1}));
+				.setShowActionsInCompactView(new int[] {0, 1, 2}));
 
 			// Set color
 			builder.setColor(Color.BLACK);
+			builder.setVisibility(Notification.VISIBILITY_PUBLIC);
 		}
 
 		//Set SmallIcon
@@ -112,7 +133,8 @@ public class MusicControlsNotification {
 				if(infos.coverURL.matches("^(https?|ftp)://.*$")) {
 					try {
 						this.currentCoverURL = infos.coverURL;
-						this.currentCover = cropImage(getBitmapFromURL(infos.coverURL));						
+						this.uncroppedImage = getBitmapFromURL(infos.coverURL);
+						this.currentCover = cropImage(this.uncroppedImage);
 						builder.setLargeIcon(this.currentCover);
 					} catch (Exception ex) {
 						ex.printStackTrace();
@@ -124,6 +146,7 @@ public class MusicControlsNotification {
 						FileInputStream fileStream = new FileInputStream(file);
 						BufferedInputStream buf = new BufferedInputStream(fileStream);
 						Bitmap image = BitmapFactory.decodeStream(buf);
+						this.uncroppedImage = image;
 						buf.close();
 						this.currentCoverURL = infos.coverURL;
 						this.currentCover = cropImage(image);
@@ -143,6 +166,19 @@ public class MusicControlsNotification {
 		builder.setContentIntent(resultPendingIntent);
 
 		//Controls		
+		if (infos.isFavorite) {
+			Intent favoriteIntent = new Intent("music-controls-not-favorite");
+			PendingIntent favoritePendingIntent = PendingIntent.getBroadcast(context, 1, favoriteIntent, 0);
+			builder.addAction(favorite_btn, "", favoritePendingIntent);
+			//this.playpauseAction = new Notification.Action(pause_btn, "", pausePendingIntent); //ANDROID 5+
+			//builder.addAction(playpauseAction); //ANDROID 5+
+		} else {
+			Intent notFavoriteIntent = new Intent("music-controls-favorite");
+			PendingIntent notFavoritePendingIntent = PendingIntent.getBroadcast(context, 1, notFavoriteIntent, 0);
+			builder.addAction(not_favorite_btn, "", notFavoritePendingIntent);
+			//this.playpauseAction = new Notification.Action(pause_btn, "", pausePendingIntent); //ANDROID 5+
+			//builder.addAction(playpauseAction); //ANDROID 5+
+		}
 		if (infos.isPlaying){
 			/* Pause  */
 			Intent pauseIntent = new Intent("music-controls-pause");
@@ -167,6 +203,49 @@ public class MusicControlsNotification {
 		builder.addAction(close_btn, "", closePendingIntent);
 
 		this.notificationBuilder = builder;
+		updateRemoteControlClientMetadata();
+	}
+
+	private void updateRemoteControlClientMetadata() {
+		if (mRemoteControlClient != null) {
+			Intent intent = new Intent();
+			intent.setAction("com.android.music.metachanged");
+			Bundle bundle = new Bundle();
+
+			// put the song's metadata
+
+			bundle.putBoolean("playing", infos.isPlaying);
+
+			bundle.putString("scrobbling_source", "com.yourcompany.yourapp");
+
+    
+			MetadataEditor editor = mRemoteControlClient.editMetadata(true);
+			if (infos.artist != null) {
+				editor.putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, infos.artist);
+				bundle.putString("artist", infos.artist);
+			}			
+			if (infos.track != null) {
+				editor.putString(MediaMetadataRetriever.METADATA_KEY_TITLE, infos.track);
+				bundle.putString("track", infos.track);
+			}
+			if (infos.subText != null) {
+				editor.putString(MediaMetadataRetriever.METADATA_KEY_ALBUM, infos.subText);
+				bundle.putString("album", infos.subText);
+			}		
+
+			// editor.putString(MediaMetadataRetriever.METADATA_KEY_GENRE, "Infantil");
+			
+			// Duration
+			// editor.putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, 120000L);
+			// bundle.putLong("duration", 245000L); // 4:05
+
+			if (uncroppedImage != null) {
+				editor.putBitmap(MetadataEditor.BITMAP_KEY_ARTWORK, this.uncroppedImage);				
+			}
+			intent.putExtras(bundle);
+			cordovaActivity.sendBroadcast(intent);
+			editor.apply();
+		}
 	}
 
 	private Bitmap cropImage(Bitmap image) {
@@ -218,6 +297,12 @@ public class MusicControlsNotification {
 		/* ---------- */
 
 		this.infos.isPlaying = isPlaying;
+		this.createBuilder();
+		this.notificationManager.notify(this.notificationID, this.notificationBuilder.build());
+	}
+
+	public void updateIsFavorite(boolean isFavorite) {
+		this.infos.isFavorite = isFavorite;
 		this.createBuilder();
 		this.notificationManager.notify(this.notificationID, this.notificationBuilder.build());
 	}

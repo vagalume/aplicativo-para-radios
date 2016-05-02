@@ -17,6 +17,9 @@ module.exports = {
 		if (data.isPlaying === undefined){
 			data.isPlaying = true;
 		}
+		if (data.isFavorite === undefined){
+			data.isFavorite = true;
+		}
 		if (data.subText === undefined){
 			data.subText = '';
 		}
@@ -25,6 +28,10 @@ module.exports = {
 
 	updateIsPlaying: function(isPlaying,successCallback,errorCallback){
         cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateIsPlaying', [{isPlaying : isPlaying}]);
+	},
+
+	updateIsFavorite: function(isFavorite,successCallback,errorCallback){
+        cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateIsFavorite', [{isFavorite : isFavorite}]);
 	},
 
     destroy: function(successCallback,errorCallback){

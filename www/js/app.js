@@ -1,6 +1,6 @@
 angular.module('VagalumeFM', ['ionic'])
 
-.run(function($ionicPlatform, $timeout) {
+.run(function($ionicPlatform, $timeout, Player) {
 	$ionicPlatform.ready(function() {
 		// Splashcreen
 		$timeout(function() {
