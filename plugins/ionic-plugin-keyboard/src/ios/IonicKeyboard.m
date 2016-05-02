@@ -1,37 +1,37 @@
 #import "IonicKeyboard.h"
-#import "UIWebViewExtension.h"
+// #import "UIWebViewExtension.h"
 #import <Cordova/CDVAvailability.h>
 
 @implementation IonicKeyboard
 
-@synthesize hideKeyboardAccessoryBar = _hideKeyboardAccessoryBar;
+// @synthesize hideKeyboardAccessoryBar = _hideKeyboardAccessoryBar;
 @synthesize disableScroll = _disableScroll;
 //@synthesize styleDark = _styleDark;
 
 - (void)pluginInitialize {
-  
+
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
     __weak IonicKeyboard* weakSelf = self;
 
     //set defaults
-    self.hideKeyboardAccessoryBar = NO;
+    // self.hideKeyboardAccessoryBar = YES;
     self.disableScroll = NO;
     //self.styleDark = NO;
-    
+
     _keyboardShowObserver = [nc addObserverForName:UIKeyboardWillShowNotification
                                object:nil
                                queue:[NSOperationQueue mainQueue]
                                usingBlock:^(NSNotification* notification) {
-                                   
+
                                    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
                                    keyboardFrame = [self.viewController.view convertRect:keyboardFrame fromView:nil];
-                                   
+
                                    [weakSelf.commandDelegate evalJs:[NSString stringWithFormat:@"cordova.plugins.Keyboard.isVisible = true; cordova.fireWindowEvent('native.keyboardshow', { 'keyboardHeight': %@ }); ", [@(keyboardFrame.size.height) stringValue]]];
 
                                    //deprecated
                                    [weakSelf.commandDelegate evalJs:[NSString stringWithFormat:@"cordova.fireWindowEvent('native.showkeyboard', { 'keyboardHeight': %@ }); ", [@(keyboardFrame.size.height) stringValue]]];
                                }];
-    
+
     _keyboardHideObserver = [nc addObserverForName:UIKeyboardWillHideNotification
                                object:nil
                                queue:[NSOperationQueue mainQueue]
@@ -63,23 +63,23 @@
 }
 
 
-- (BOOL)hideKeyboardAccessoryBar {
-    return _hideKeyboardAccessoryBar;
-}
-
-- (void)setHideKeyboardAccessoryBar:(BOOL)hideKeyboardAccessoryBar {
-    if (hideKeyboardAccessoryBar == _hideKeyboardAccessoryBar) {
-        return;
-    }
-    if (hideKeyboardAccessoryBar) {
-        self.webView.hackishlyHidesInputAccessoryView = YES;
-    }
-    else {
-        self.webView.hackishlyHidesInputAccessoryView = NO;
-    }
-
-    _hideKeyboardAccessoryBar = hideKeyboardAccessoryBar;
-}
+// - (BOOL)hideKeyboardAccessoryBar {
+//     return _hideKeyboardAccessoryBar;
+// }
+//
+// - (void)setHideKeyboardAccessoryBar:(BOOL)hideKeyboardAccessoryBar {
+//     if (hideKeyboardAccessoryBar == _hideKeyboardAccessoryBar || ![self.webView isKindOfClass:[UIWebView class]]) {
+//         return;
+//     }
+//     if (hideKeyboardAccessoryBar) {
+//         ((UIWebView*)self.webView).hackishlyHidesInputAccessoryView = YES;
+//     }
+//     else {
+//         ((UIWebView*)self.webView).hackishlyHidesInputAccessoryView = NO;
+//     }
+//
+//     _hideKeyboardAccessoryBar = hideKeyboardAccessoryBar;
+// }
 
 /*
 - (BOOL)styleDark {
@@ -124,18 +124,20 @@
       return;
     }
     id value = [command.arguments objectAtIndex:0];
-    
-    self.disableScroll = [value boolValue];
+    if (value != [NSNull null]) {
+      self.disableScroll = [value boolValue];
+    }
 }
 
-- (void) hideKeyboardAccessoryBar:(CDVInvokedUrlCommand*)command {
-    if (!command.arguments || ![command.arguments count]){
-      return;
-    }
-    id value = [command.arguments objectAtIndex:0];
-    
-    self.hideKeyboardAccessoryBar = [value boolValue];
-}
+// - (void) hideKeyboardAccessoryBar:(CDVInvokedUrlCommand*)command {
+//     if (!command.arguments || ![command.arguments count]){
+//       return;
+//     }
+//     id value = [command.arguments objectAtIndex:0];
+//     if (value != [NSNull null]) {
+//       self.hideKeyboardAccessoryBar = [value boolValue];
+//     }
+// }
 
 - (void) close:(CDVInvokedUrlCommand*)command {
     [self.webView endEditing:YES];
@@ -151,7 +153,7 @@
       return;
     }
     id value = [command.arguments objectAtIndex:0];
-    
+
     self.styleDark = [value boolValue];
 }
 */
