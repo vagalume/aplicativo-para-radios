@@ -20,6 +20,7 @@ import android.content.ComponentName;
 import android.app.Service;
 import android.os.IBinder;
 import android.os.Bundle;
+import android.os.Build;
 import android.R;
 import android.content.BroadcastReceiver;
 import android.media.AudioManager;
@@ -30,15 +31,17 @@ public class MusicControls extends CordovaPlugin {
 	private final int notificationID=7824;
 	private AudioManager mAudioManager;
 	private PendingIntent mediaButtonPendingIntent;
+	private boolean mediaButtonAccess=true;
+
 
 	private void registerBroadcaster(MusicControlsBroadcastReceiver mMessageReceiver){
 		final Context context = this.cordova.getActivity().getApplicationContext();
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-previous"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-pause"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-play"));
-		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-close"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-next"));
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-media-button"));
+		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter("music-controls-destroy"));
 
 		// Listen for headset plug/unplug
 		context.registerReceiver((BroadcastReceiver)mMessageReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
@@ -46,27 +49,41 @@ public class MusicControls extends CordovaPlugin {
 
 	// Register pendingIntent for broacast
 	public void registerMediaButtonEvent(){
-		this.mAudioManager.registerMediaButtonEventReceiver(this.mediaButtonPendingIntent);
+		if (this.mediaButtonAccess && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2){
+			this.mAudioManager.registerMediaButtonEventReceiver(this.mediaButtonPendingIntent);
+		}
 	}
+
 	public void unregisterMediaButtonEvent(){
-		this.mAudioManager.unregisterMediaButtonEventReceiver(this.mediaButtonPendingIntent);
+		if (this.mediaButtonAccess && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2){
+			this.mAudioManager.unregisterMediaButtonEventReceiver(this.mediaButtonPendingIntent);
+		}
+	}
+
+	public void destroyPlayerNotification(){
+		this.notification.destroy();
 	}
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
 		final Activity activity = this.cordova.getActivity();
+		final Context context=activity.getApplicationContext();
 
 		this.notification = new MusicControlsNotification(activity,this.notificationID);
 		this.mMessageReceiver = new MusicControlsBroadcastReceiver(this);
 		this.registerBroadcaster(mMessageReceiver);
 
 		// Register media (headset) button event receiver
-		final Context context=activity.getApplicationContext();
-		this.mAudioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-		Intent headsetIntent = new Intent("music-controls-media-button");
-		this.mediaButtonPendingIntent = PendingIntent.getBroadcast(context, 0, headsetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		this.registerMediaButtonEvent();
+		try {
+			this.mAudioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+			Intent headsetIntent = new Intent("music-controls-media-button");
+			this.mediaButtonPendingIntent = PendingIntent.getBroadcast(context, 0, headsetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			this.registerMediaButtonEvent();
+		} catch (Exception e) {
+			this.mediaButtonAccess=false;
+			e.printStackTrace();
+		}
 
 		// Notification Killer
 		ServiceConnection mConnection = new ServiceConnection() {
@@ -100,7 +117,7 @@ public class MusicControls extends CordovaPlugin {
 			final boolean isPlaying = params.getBoolean("isPlaying");
 			this.notification.updateIsPlaying(isPlaying);
 			callbackContext.success("success");
-		}		
+		}
 		else if (action.equals("destroy")){
 			this.notification.destroy();
 			this.mMessageReceiver.stopListening();
