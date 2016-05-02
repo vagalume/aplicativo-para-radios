@@ -1,105 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="cordova-plugin-music-controls"
-    version="1.3">
-    <name>MusicControls</name>
+	id="cordova-plugin-music-controls"
+	version="1.2.0">
+	<name>MusicControls</name>
 	<keywords>cordova,music,controller,controls,media,plugin,notification</keywords>
 	<repo>https://github.com/homerours/cordova-music-controls-plugin</repo>
-    <description>Music controls for Cordova apps</description>
-    <license>MIT</license>
+	<description>Music controls for Cordova apps</description>
+	<license>MIT</license>
 	<author>HomerOurs</author>
 
-    <engines>
-        <engine name="cordova" version=">=3.4.0"/>
-    </engines>
+	<engines>
+		<engine name="cordova" version=">=3.4.0"/>
+	</engines>
 
-    <asset src="www/MusicControls.js" target="js/MusicControls.js"/>
+	<asset src="www/MusicControls.js" target="js/MusicControls.js"/>
 
-    <js-module src="www/MusicControls.js" name="MusicControls">
-        <clobbers target="MusicControls" />
-    </js-module>
+	<js-module src="www/MusicControls.js" name="MusicControls">
+		<clobbers target="MusicControls"/>
+	</js-module>
 
-    <!-- android -->
-    <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="MusicControls" >
-                <param name="android-package" value="com.homerours.musiccontrols.MusicControls"/>
-            </feature>
-        </config-file>
+	<!-- android -->
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="MusicControls" >
+				<param name="android-package" value="com.homerours.musiccontrols.MusicControls"/>
+			</feature>
+		</config-file>
 
-        <config-file target="AndroidManifest.xml" parent="/*">
-        </config-file>
+		<config-file target="AndroidManifest.xml" parent="/*">
+		</config-file>
 
 		<config-file target="AndroidManifest.xml" parent="/manifest/application">
 			<service android:name="com.homerours.musiccontrols.MusicControlsNotificationKiller"></service>
 		</config-file>
 
-        <source-file src="src/android/MusicControls.java" target-dir="src/com/homerours/musiccontrols" />
-        <source-file src="src/android/MusicControlsBroadcastReceiver.java" target-dir="src/com/homerours/musiccontrols" />
-        <source-file src="src/android/MusicControlsNotification.java" target-dir="src/com/homerours/musiccontrols" />
-        <source-file src="src/android/MusicControlsNotificationKiller.java" target-dir="src/com/homerours/musiccontrols" />
-        <source-file src="src/android/MusicControlsInfos.java" target-dir="src/com/homerours/musiccontrols" />
-        <source-file src="src/android/KillBinder.java" target-dir="src/com/homerours/musiccontrols" />
+		<source-file src="src/android/MusicControls.java" target-dir="src/com/homerours/musiccontrols"/>
+		<source-file src="src/android/MusicControlsBroadcastReceiver.java" target-dir="src/com/homerours/musiccontrols"/>
+		<source-file src="src/android/MusicControlsNotification.java" target-dir="src/com/homerours/musiccontrols"/>
+		<source-file src="src/android/MusicControlsNotificationKiller.java" target-dir="src/com/homerours/musiccontrols"/>
+		<source-file src="src/android/MusicControlsInfos.java" target-dir="src/com/homerours/musiccontrols"/>
+		<source-file src="src/android/KillBinder.java" target-dir="src/com/homerours/musiccontrols"/>
 
-        <!-- ic_pause -->
-        <resource-file src="res/drawable-hdpi/ic_pause.png" target="res/drawable-hdpi/ic_pause.png"/>
-        <resource-file src="res/drawable-mdpi/ic_pause.png" target="res/drawable-mdpi/ic_pause.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_pause.png" target="res/drawable-xhdpi/ic_pause.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_pause.png" target="res/drawable-xxhdpi/ic_pause.png"/>
+		<!-- ic_pause -->
+		<resource-file src="res/drawable-hdpi/ic_pause.png" target="res/drawable-hdpi/ic_pause.png"/>
+		<resource-file src="res/drawable-mdpi/ic_pause.png" target="res/drawable-mdpi/ic_pause.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_pause.png" target="res/drawable-xhdpi/ic_pause.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_pause.png" target="res/drawable-xxhdpi/ic_pause.png"/>
 
-        <!-- ic_play_arrow -->
-        <resource-file src="res/drawable-hdpi/ic_play_arrow.png" target="res/drawable-hdpi/ic_play_arrow.png"/>
-        <resource-file src="res/drawable-mdpi/ic_play_arrow.png" target="res/drawable-mdpi/ic_play_arrow.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_play_arrow.png" target="res/drawable-xhdpi/ic_play_arrow.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_play_arrow.png" target="res/drawable-xxhdpi/ic_play_arrow.png"/>
+		<!-- ic_play_arrow -->
+		<resource-file src="res/drawable-hdpi/ic_play_arrow.png" target="res/drawable-hdpi/ic_play_arrow.png"/>
+		<resource-file src="res/drawable-mdpi/ic_play_arrow.png" target="res/drawable-mdpi/ic_play_arrow.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_play_arrow.png" target="res/drawable-xhdpi/ic_play_arrow.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_play_arrow.png" target="res/drawable-xxhdpi/ic_play_arrow.png"/>
 
-        <!-- close -->
-        <resource-file src="res/drawable-hdpi/ic_close.png" target="res/drawable-hdpi/ic_close.png"/>
-        <resource-file src="res/drawable-mdpi/ic_close.png" target="res/drawable-mdpi/ic_close.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_close.png" target="res/drawable-xhdpi/ic_close.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_close.png" target="res/drawable-xxhdpi/ic_close.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_close.png" target="res/drawable-xxxhdpi/ic_close.png"/>
+		<!-- close -->
+		<resource-file src="res/drawable-hdpi/ic_close.png" target="res/drawable-hdpi/ic_close.png"/>
+		<resource-file src="res/drawable-mdpi/ic_close.png" target="res/drawable-mdpi/ic_close.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_close.png" target="res/drawable-xhdpi/ic_close.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_close.png" target="res/drawable-xxhdpi/ic_close.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_close.png" target="res/drawable-xxxhdpi/ic_close.png"/>
 
-        <!-- favorite -->
-        <resource-file src="res/drawable-hdpi/ic_favorite_white.png" target="res/drawable-hdpi/ic_favorite_white.png"/>
-        <resource-file src="res/drawable-mdpi/ic_favorite_white.png" target="res/drawable-mdpi/ic_favorite_white.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_favorite_white.png" target="res/drawable-xhdpi/ic_favorite_white.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_favorite_white.png" target="res/drawable-xxhdpi/ic_favorite_white.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_favorite_white.png" target="res/drawable-xxxhdpi/ic_favorite_white.png"/>
+		<!-- favorite -->
+		<resource-file src="res/drawable-hdpi/ic_favorite_white.png" target="res/drawable-hdpi/ic_favorite_white.png"/>
+		<resource-file src="res/drawable-mdpi/ic_favorite_white.png" target="res/drawable-mdpi/ic_favorite_white.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_favorite_white.png" target="res/drawable-xhdpi/ic_favorite_white.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_favorite_white.png" target="res/drawable-xxhdpi/ic_favorite_white.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_favorite_white.png" target="res/drawable-xxxhdpi/ic_favorite_white.png"/>
 
-        <!-- not-favorite -->
-        <resource-file src="res/drawable-hdpi/ic_favorite_border_white.png" target="res/drawable-hdpi/ic_favorite_border_white.png"/>
-        <resource-file src="res/drawable-mdpi/ic_favorite_border_white.png" target="res/drawable-mdpi/ic_favorite_border_white.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_favorite_border_white.png" target="res/drawable-xhdpi/ic_favorite_border_white.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_favorite_border_white.png" target="res/drawable-xxhdpi/ic_favorite_border_white.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_favorite_border_white.png" target="res/drawable-xxxhdpi/ic_favorite_border_white.png"/>
+		<!-- not-favorite -->
+		<resource-file src="res/drawable-hdpi/ic_favorite_border_white.png" target="res/drawable-hdpi/ic_favorite_border_white.png"/>
+		<resource-file src="res/drawable-mdpi/ic_favorite_border_white.png" target="res/drawable-mdpi/ic_favorite_border_white.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_favorite_border_white.png" target="res/drawable-xhdpi/ic_favorite_border_white.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_favorite_border_white.png" target="res/drawable-xxhdpi/ic_favorite_border_white.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_favorite_border_white.png" target="res/drawable-xxxhdpi/ic_favorite_border_white.png"/>
 
-        <!-- ic_skip_next -->
-        <resource-file src="res/drawable-hdpi/ic_skip_next.png" target="res/drawable-hdpi/ic_skip_next.png"/>
-        <resource-file src="res/drawable-mdpi/ic_skip_next.png" target="res/drawable-mdpi/ic_skip_next.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_skip_next.png" target="res/drawable-xhdpi/ic_skip_next.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_skip_next.png" target="res/drawable-xxhdpi/ic_skip_next.png"/>
+		<!-- ic_skip_next -->
+		<resource-file src="res/drawable-hdpi/ic_skip_next.png" target="res/drawable-hdpi/ic_skip_next.png"/>
+		<resource-file src="res/drawable-mdpi/ic_skip_next.png" target="res/drawable-mdpi/ic_skip_next.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_skip_next.png" target="res/drawable-xhdpi/ic_skip_next.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_skip_next.png" target="res/drawable-xxhdpi/ic_skip_next.png"/>
 
-        <!-- ic_skip_previous -->
-        <resource-file src="res/drawable-hdpi/ic_skip_previous.png" target="res/drawable-hdpi/ic_skip_previous.png"/>
-        <resource-file src="res/drawable-mdpi/ic_skip_previous.png" target="res/drawable-mdpi/ic_skip_previous.png"/>
-        <resource-file src="res/drawable-xhdpi/ic_skip_previous.png" target="res/drawable-xhdpi/ic_skip_previous.png"/>
-        <resource-file src="res/drawable-xxhdpi/ic_skip_previous.png" target="res/drawable-xxhdpi/ic_skip_previous.png"/>
-        
-        <!-- notification -->
-        <source-file src="res/drawable-hdpi/ic_vagalume.png" target-dir="res/drawable-hdpi" />
+		<!-- ic_skip_previous -->
+		<resource-file src="res/drawable-hdpi/ic_skip_previous.png" target="res/drawable-hdpi/ic_skip_previous.png"/>
+		<resource-file src="res/drawable-mdpi/ic_skip_previous.png" target="res/drawable-mdpi/ic_skip_previous.png"/>
+		<resource-file src="res/drawable-xhdpi/ic_skip_previous.png" target="res/drawable-xhdpi/ic_skip_previous.png"/>
+		<resource-file src="res/drawable-xxhdpi/ic_skip_previous.png" target="res/drawable-xxhdpi/ic_skip_previous.png"/>
+
+		<!-- notification -->
+		<source-file src="res/drawable-hdpi/ic_vagalume.png" target-dir="res/drawable-hdpi" />
         <source-file src="res/drawable-mdpi/ic_vagalume.png" target-dir="res/drawable-mdpi" />
         <source-file src="res/drawable-xhdpi/ic_vagalume.png" target-dir="res/drawable-xhdpi" />
         <source-file src="res/drawable-xxhdpi/ic_vagalume.png" target-dir="res/drawable-xxhdpi" />
         <source-file src="res/drawable-xxxhdpi/ic_vagalume.png" target-dir="res/drawable-xxxhdpi" />
 
-    </platform>
-    
-    <!-- windows -->
-  	<platform name="windows">
-    	<js-module src="src/windows/MusicControlsProxy.js" name="MusicControlsProxy">
-    		<merges target="" />
-    	</js-module>
+	</platform>
+
+	<!-- windows -->
+	<platform name="windows">
+		<js-module src="src/windows/MusicControlsProxy.js" name="MusicControlsProxy">
+			<merges target=""/>
+		</js-module>
 	</platform>
 
 </plugin>

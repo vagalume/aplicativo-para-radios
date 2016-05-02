@@ -1,79 +1,56 @@
-//  Copyright © 2015 filfat Studios AB
-
-/* global Windows, cordova */
-var mc;
+var mc = Windows.Media.MediaControl;
 var onUpdate = function (event) { };
 
-var onKey = function (event) {
-    var Button = Windows.Media.SystemMediaTransportControlsButton;
-    switch (event.button) {
-        case Button.play:
-            onUpdate('music-controls-play');
-            break;
-        case Button.pause:
-            onUpdate('music-controls-pause');
-            break;
-        case Button.stop:
-            onUpdate('music-controls-stop');
-            break;
-        case Button.next:
-            onUpdate('music-controls-next');
-            break;
-        case Button.previous:
-            onUpdate('music-controls-previous');
-            break;
-    }
+var onPlay = function () {
+    onUpdate('music-controls-play');
+},
+onPause = function () {
+    onUpdate('music-controls-pause');
+},
+onPlayPause = function () {
+    if (mc.isPlaying)
+        onPause();
+    else
+        onPlay();
+},
+onNext = function () {
+    onUpdate('music-controls-next');
+},
+onPrev = function () {
+    onUpdate('music-controls-previous');
 };
 
 cordova.commandProxy.add("MusicControls",{
     create: function (successCallback, errorCallback, datas) {
         var data = datas[0];
-        mc = Windows.Media.SystemMediaTransportControls.getForCurrentView();
 
         //Handle events
-        mc.addEventListener("buttonpressed", onKey, false);
-
-        //Set data
-        mc.isEnabled = true;
-        mc.isPlayEnabled = true;
-        mc.isPauseEnabled = true;
-        mc.isNextEnabled = true;
-        mc.isStopEnabled = true;
-        mc.isPreviousEnabled = true;
-        mc.displayUpdater.type = Windows.Media.MediaPlaybackType.music;
-
-        //Is Playing
-        if (data.isPlaying)
-            mc.playbackStatus = Windows.Media.MediaPlaybackStatus.playing;
-        else
-            mc.playbackStatus = Windows.Media.MediaPlaybackStatus.stopped;
-        
+        mc.addEventListener("playpausetogglepressed", onPlayPause, false);
+		mc.addEventListener("playpressed", onPlay, false);
+		mc.addEventListener("pausepressed", onPause, false);
+		mc.addEventListener("previoustrackpressed", onPrev, false);
+		mc.addEventListener("nexttrackpressed", onNext, false);
 
 		if (!/^(f|ht)tps?:\/\//i.test(data.cover)) {
 		    var cover = new Windows.Foundation.Uri("ms-appdata://" + data.cover);
-		    mc.displayUpdater.thumbnail = cover;
+		    mc.albumArt = cover;
 		} else {
 		    //TODO: Store image locally
 		}
-		mc.displayUpdater.musicProperties.albumArtist = data.artist;
-		mc.displayUpdater.musicProperties.albumTitle = (data.album === undefined ? ' ' : data.album);
-		mc.displayUpdater.musicProperties.artist = data.artist;
-		mc.displayUpdater.musicProperties.title = data.track;
-		mc.displayUpdater.update();
+
+        //Set data
+		mc.artistName = data.artist;
+		mc.isPlaying = data.isPlaying;
+		mc.trackName = data.track;
     },
     destroy: function (successCallback, errorCallback, datas) {
         //Remove events
-        mc.displayUpdater.clearAll();
+        mc.removeEventListener("playpausetogglepressed", onPlayPause);
+        mc.removeEventListener("playpressed", onPlay);
+        mc.removeEventListener("pausepressed", onPause);
     },
     watch: function (_onUpdate, errorCallback, datas) {
         //Set callback
 	    onUpdate = _onUpdate;
-    },
-    updateIsPlaying: function (successCallback, errorCallback, par) {
-        if (par[0].isPlaying)
-            mc.playbackStatus = Windows.Media.MediaPlaybackStatus.playing;
-        else
-            mc.playbackStatus = Windows.Media.MediaPlaybackStatus.stopped;
-        mc.displayUpdater.update();
     }
 });
